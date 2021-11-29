@@ -25,7 +25,7 @@ import os
 app = Flask(__name__)
 sockets = Sockets(app)
 app.debug = True
-#https://github.com/uofa-cmput404/cmput404-slides/blob/master/examples/WebSocketsExamples/chat.py
+#from https://github.com/uofa-cmput404/cmput404-slides/blob/master/examples/WebSocketsExamples/chat.py
 def send_all(msg):
     for client in clients:
         client.put( msg )
