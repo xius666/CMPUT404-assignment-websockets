@@ -78,6 +78,8 @@ myWorld = World()
 
 def set_listener( entity, data ):
     ''' do something with the update ! '''
+    msg = json.dumps({entity: data})
+    send_all(msg)
 
 myWorld.add_set_listener( set_listener )
         
@@ -121,6 +123,9 @@ def subscribe_socket(ws):
         gevent.kill(g)
 
 
+# cited from 
+# https://github.com/xius666/CMPUT404-assignment-ajax
+
 # I give this to you, this is how you get the raw body/data portion of a post in flask
 # this should come with flask but whatever, it's not my project.
 def flask_post_json():
@@ -132,7 +137,6 @@ def flask_post_json():
         return json.loads(request.data.decode("utf8"))
     else:
         return json.loads(request.form.keys()[0])
-
 
 @app.route("/entity/<entity>", methods=['POST','PUT'])
 def update(entity):
