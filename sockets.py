@@ -93,12 +93,7 @@ def read_ws(ws,client):
     try:
         while True:
             msg = ws.receive()
-            if (str(msg) == "init"):
-                #send the initial world
-                print(myWorld.world())
-                send_all_json(myWorld.world())
-                continue
-            elif (msg is not None):
+            if (msg is not None):
                 packet = json.loads(msg)
                 send_all_json( packet )
             else:

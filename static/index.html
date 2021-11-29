@@ -132,7 +132,9 @@
         world[entity] = data;
         drawNextFrame(); // (but should we?)
         //XXX: Send a XHTML Request that updates the entity you just modified!
-        req = JSON.stringify(world);
+        msg = {};
+        msg[entity] = data;
+        req = JSON.stringify(msg);
         socket.send(req);
       }
       var counter = 0;
@@ -273,19 +275,15 @@
         socket.onopen = function () {
           //XXX: TODO What are you going to do here?
 
-          //get the initial state
-          another_socket = new WebSocket(url);
-          another_socket.onopen = function () {
-            another_socket.send("init");
-            another_socket.close();
-          };
+          //send a msg to debug
+          debug("WebSocket is opened");
         };
         socket.onerror = function (msg) {
           debug("WebSocket Error:" + msg.data);
         };
         socket.onmessage = function (msg) {
           try {
-            //debug("WebSocket Recv:" + msg.data);
+            debug("WebSocket Recv:" + msg.data);
 
             //XXX: TODO What are you going to do here?
             var data = JSON.parse(msg.data);
